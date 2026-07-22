@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/dao_tao_dtv_tran_thanh_thuy.html" }
+  ]
+}
