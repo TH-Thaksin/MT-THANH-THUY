@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đào tạo ĐTV — Trần Thanh Thủy | Tổng đài 18001166</title>
+<style>
+:root{
+  color-scheme: light;
+  --navy-900:#0a1f33; --navy-800:#0f2c47; --navy-700:#163c5c; --navy-600:#1e4d73;
+  --teal-500:#0f9c8f; --teal-400:#14b8a6; --teal-100:#d6f3ef;
+  --bg:#f2f6f8; --surface:#ffffff; --surface-2:#eef3f6;
+  --ink:#0e2233; --ink-2:#4c6579; --ink-muted:#7e93a3;
+  --line:#dbe5eb; --ring:rgba(10,31,51,0.10);
+  --seq-100:#cde2fb; --seq-250:#86b6ef; --seq-400:#3987e5; --seq-450:#2a78d6; --seq-500:#256abf; --seq-550:#1c5cab; --seq-700:#0d366b;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "Cascadia Code", "Consolas", "SFMono-Regular", monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme: dark;
+    --bg:#071522; --surface:#0f2438; --surface-2:#132c44;
+    --ink:#eef5f7; --ink-2:#a9c0cf; --ink-muted:#7e93a3;
+    --line:#1e3a52; --ring:rgba(255,255,255,0.10);
+    --seq-100:#184f95; --seq-250:#1c5cab; --seq-400:#3987e5; --seq-450:#2a78d6; --seq-500:#5598e7; --seq-550:#6da7ec; --seq-700:#9ec5f4;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#071522; --surface:#0f2438; --surface-2:#132c44;
+  --ink:#eef5f7; --ink-2:#a9c0cf; --ink-muted:#7e93a3;
+  --line:#1e3a52; --ring:rgba(255,255,255,0.10);
+  --seq-100:#184f95; --seq-250:#1c5cab; --seq-400:#3987e5; --seq-450:#2a78d6; --seq-500:#5598e7; --seq-550:#6da7ec; --seq-700:#9ec5f4;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--font);
+  line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px;}
+a{color:var(--teal-500);}
+
+/* ===== HEADER ===== */
+header.top{
+  background:linear-gradient(155deg, var(--navy-900), var(--navy-700) 70%);
+  color:#eef5f7; padding:28px 0 34px; border-bottom:4px solid var(--teal-500);
+}
+header.top .wrap{display:flex; flex-wrap:wrap; gap:20px; align-items:flex-end; justify-content:space-between;}
+.brand-eyebrow{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-400); font-weight:700; margin:0 0 6px;}
+h1.brand-title{font-size:clamp(22px,3.2vw,32px); font-weight:800; letter-spacing:-0.01em; margin:0 0 8px; font-family:var(--font);}
+.meta-row{display:flex; flex-wrap:wrap; gap:14px 22px; font-size:13px; color:#c3d4de;}
+.meta-row b{color:#fff; font-family:var(--mono); font-weight:600;}
+.toggle-group{display:flex; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:4px; gap:4px;}
+.toggle-btn{
+  border:none; background:transparent; color:#c3d4de; font:inherit; font-weight:700; font-size:13.5px;
+  padding:10px 20px; border-radius:999px; cursor:pointer; transition:.15s; white-space:nowrap;
+}
+.toggle-btn.active{background:var(--teal-500); color:#04211d; box-shadow:0 2px 10px rgba(15,156,143,.4);}
+.toggle-btn:not(.active):hover{background:rgba(255,255,255,0.12); color:#fff;}
+
+/* ===== SECTIONS ===== */
+section.view{display:none; padding-top:28px;}
+section.view.active{display:block;}
+.block{margin-bottom:40px;}
+h2.block-title{
+  font-size:20px; font-weight:800; letter-spacing:-0.01em; margin:0 0 4px; color:var(--ink);
+  display:flex; align-items:center; gap:10px;
+}
+h2.block-title .num{
+  width:26px;height:26px;border-radius:7px;background:var(--navy-800);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-family:var(--mono);flex-shrink:0;
+}
+p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px;}
+
+/* ===== STAT TILES / SCORECARDS ===== */
+.tile-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px;}
+.tile{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px;
+}
+.tile .tlabel{font-size:12px; color:var(--ink-muted); font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;}
+.tile .tvalue{font-family:var(--mono); font-size:30px; font-weight:700; color:var(--navy-800); letter-spacing:-0.01em;}
+.tile .tvalue small{font-size:15px; color:var(--ink-muted); font-weight:500;}
+.tile .tsub{font-size:12.5px; color:var(--ink-2); margin-top:4px;}
+.meter-track{height:8px; border-radius:6px; background:var(--seq-100); margin-top:10px; overflow:hidden;}
+.meter-fill{height:100%; border-radius:6px; background:var(--seq-450);}
+:root[data-theme="dark"] .meter-fill,
+@media (prefers-color-scheme:dark){.meter-fill{background:var(--seq-400);}}
+.tile.hero{background:linear-gradient(155deg,var(--navy-800),var(--navy-600)); border:none;}
+.tile.hero .tlabel{color:#9fd8d0;}
+.tile.hero .tvalue{color:#fff;}
+.tile.hero .tsub{color:#c3d4de;}
+.tile.hero .meter-track{background:rgba(255,255,255,.18);}
+.tile.hero .meter-fill{background:var(--teal-400);}
+
+/* ===== ISSUE CARDS ===== */
+.issue-card{
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--serious);
+  border-radius:12px; padding:18px 20px; margin-bottom:14px;
+}
+.issue-card .ihead{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:8px;}
+.issue-card .itag{
+  font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+  background:var(--surface-2); color:var(--ink-2); padding:3px 9px; border-radius:6px; border:1px solid var(--line);
+}
+.issue-card h3{font-size:16px; margin:0; font-weight:800; color:var(--ink);}
+.issue-card .icount{margin-left:auto; font-family:var(--mono); font-size:12.5px; color:var(--ink-muted);}
+.issue-card p{font-size:14px; color:var(--ink-2); margin:0 0 10px;}
+.quote-block{
+  background:var(--surface-2); border-radius:8px; padding:10px 14px; margin:8px 0; font-size:13px;
+  border-left:3px solid var(--seq-450); color:var(--ink);
+}
+.quote-block cite{display:block; font-style:normal; font-size:11.5px; color:var(--ink-muted); margin-top:5px; font-family:var(--mono);}
+.fix-box{
+  background:var(--teal-100); border-radius:8px; padding:10px 14px; font-size:13.5px; color:var(--navy-900); margin-top:10px;
+}
+:root[data-theme="dark"] .fix-box, @media (prefers-color-scheme:dark){ .fix-box{background:rgba(15,156,143,0.16); color:#c8ece7;} }
+.fix-box b{color:var(--teal-500);}
+
+/* ===== STRENGTHS ===== */
+.strength-list{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;}
+.strength-item{
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--good);
+  border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--ink-2);
+}
+.strength-item b{display:block; color:var(--ink); font-size:14px; margin-bottom:3px;}
+
+/* ===== TABLE (giáo án) ===== */
+.plan-table{width:100%; border-collapse:collapse; background:var(--surface); border-radius:12px; overflow:hidden; border:1px solid var(--line); font-size:13.5px;}
+.plan-table th{background:var(--navy-800); color:#fff; text-align:left; padding:12px 14px; font-size:12px; text-transform:uppercase; letter-spacing:.04em;}
+.plan-table td{padding:13px 14px; border-top:1px solid var(--line); color:var(--ink-2); vertical-align:top;}
+.plan-table tr:nth-child(even) td{background:var(--surface-2);}
+.plan-table .buoi-num{font-family:var(--mono); font-weight:700; color:var(--navy-800); white-space:nowrap;}
+.axis-pill{display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; color:#fff; margin-bottom:4px;}
+.pill-qt{background:var(--seq-450);} .pill-td{background:#7a4fc9;} .pill-tn{background:#c9762e;} .pill-gt{background:var(--teal-500);} .pill-tk{background:var(--navy-800);}
+.table-scroll{overflow-x:auto;}
+
+/* ===== BAR CHARTS ===== */
+.chart-card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px 22px;}
+.chart-card h4{margin:0 0 2px; font-size:14.5px; font-weight:700;}
+.chart-card .chart-note{font-size:12px; color:var(--ink-muted); margin-bottom:16px;}
+.hbar-row{display:grid; grid-template-columns:170px 1fr 56px; align-items:center; gap:10px; margin-bottom:10px; font-size:12.5px;}
+.hbar-row .hlabel{color:var(--ink-2); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.hbar-track{height:20px; background:var(--surface-2); border-radius:4px; position:relative;}
+.hbar-fill{height:20px; border-radius:4px 4px 4px 4px; background:var(--seq-450);}
+.hbar-row .hval{font-family:var(--mono); color:var(--ink); font-weight:600;}
+
+/* ===== TICKETS ===== */
+.ticket-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px;}
+.ticket{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:15px 16px; font-size:13px;}
+.ticket .thead{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+.ticket .tid{font-family:var(--mono); font-size:12px; color:var(--ink-muted);}
+.badge{font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; display:inline-flex; align-items:center; gap:5px; margin-left:auto; white-space:nowrap;}
+.badge::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor;}
+.badge.b-critical{background:rgba(208,59,59,.12); color:var(--critical);}
+.badge.b-serious{background:rgba(236,131,90,.14); color:#b85a34;}
+.badge.b-warning{background:rgba(250,178,25,.16); color:#95700a;}
+.badge.b-case{background:rgba(15,156,143,.14); color:var(--teal-500);}
+:root[data-theme="dark"] .badge.b-serious,@media (prefers-color-scheme:dark){.badge.b-serious{color:#f3a37e;}}
+:root[data-theme="dark"] .badge.b-warning,@media (prefers-color-scheme:dark){.badge.b-warning{color:#fcc866;}}
+.ticket .tmeta{color:var(--ink-muted); font-size:11.5px; margin-bottom:8px; font-family:var(--mono);}
+.ticket .ttopic{font-weight:700; color:var(--ink); margin-bottom:6px; font-size:13.5px;}
+.ticket .treason{color:var(--ink-2); font-size:12.5px; margin-bottom:6px;}
+.ticket .tscores{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;}
+.tscores span{font-family:var(--mono); font-size:10.5px; background:var(--surface-2); border-radius:5px; padding:2px 6px; color:var(--ink-2);}
+
+/* ===== CASE STUDIES ===== */
+.case-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:14px;}
+.case-card .chead{display:flex; flex-wrap:wrap; gap:10px; align-items:baseline; margin-bottom:8px;}
+.case-card .crank{font-family:var(--mono); font-size:22px; font-weight:800; color:var(--critical); width:34px;}
+.case-card h3{margin:0; font-size:15.5px;}
+.case-card .cavg{margin-left:auto; font-family:var(--mono); font-weight:700; color:var(--critical); font-size:15px;}
+.case-card p{font-size:13.5px; color:var(--ink-2); margin:6px 0;}
+.case-scores{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0;}
+.case-scores div{font-size:11px; background:var(--surface-2); padding:5px 9px; border-radius:7px; color:var(--ink-2); font-family:var(--mono);}
+
+/* ===== ĐTV: PROCESS STEPS ===== */
+.step-list{counter-reset:step; list-style:none; margin:0; padding:0;}
+.step-list li{
+  counter-increment:step; position:relative; padding:14px 18px 14px 54px; margin-bottom:10px;
+  background:var(--surface); border:1px solid var(--line); border-radius:12px; font-size:13.5px; color:var(--ink-2);
+}
+.step-list li::before{
+  content:counter(step); position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  width:28px; height:28px; border-radius:8px; background:var(--navy-800); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:13px;
+}
+.step-list li b{color:var(--ink); display:block; margin-bottom:2px; font-size:14px;}
+
+/* ===== SCRIPT LIBRARY (tabs) ===== */
+.tabs{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+.tab-btn{
+  border:1px solid var(--line); background:var(--surface); color:var(--ink-2); font:inherit; font-weight:700; font-size:12.5px;
+  padding:9px 15px; border-radius:9px; cursor:pointer; transition:.15s;
+}
+.tab-btn.active{background:var(--navy-800); color:#fff; border-color:var(--navy-800);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.script-list{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+.script-list li{
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--teal-500);
+  border-radius:8px; padding:11px 15px; font-size:13.5px; color:var(--ink); position:relative;
+}
+.script-list li::before{content:"“"; color:var(--teal-500); font-weight:800; margin-right:2px;}
+
+/* ===== SCENARIOS ===== */
+.scenario{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin-bottom:16px;}
+.scenario .sc-tag{display:inline-block; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; color:#fff; margin-bottom:10px;}
+.kh-bubble{
+  background:var(--surface-2); border-radius:12px 12px 12px 2px; padding:12px 16px; font-size:14px;
+  max-width:640px; margin-bottom:16px; color:var(--ink); font-style:italic;
+}
+.kh-bubble b{font-style:normal; color:var(--navy-800); display:block; font-size:11px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px; font-style:normal;}
+.choice-list{display:grid; gap:9px;}
+.choice-btn{
+  text-align:left; background:var(--surface); border:1.5px solid var(--line); border-radius:10px; padding:11px 15px;
+  font:inherit; font-size:13.5px; color:var(--ink); cursor:pointer; transition:.15s;
+}
+.choice-btn:hover{border-color:var(--seq-450); background:var(--surface-2);}
+.choice-btn.correct{border-color:var(--good); background:rgba(12,163,12,.08);}
+.choice-btn.wrong{border-color:var(--critical); background:rgba(208,59,59,.08);}
+.choice-btn:disabled{cursor:default;}
+.feedback{
+  margin-top:12px; padding:12px 16px; border-radius:10px; font-size:13.5px; display:none;
+}
+.feedback.show{display:block;}
+.feedback.ok{background:rgba(12,163,12,.10); color:var(--ink); border-left:3px solid var(--good);}
+.feedback.bad{background:rgba(208,59,59,.10); color:var(--ink); border-left:3px solid var(--critical);}
+.feedback b{display:block; margin-bottom:3px;}
+
+/* ===== CHECKLIST ===== */
+.checklist-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;}
+.check-group{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 18px;}
+.check-group .cghead{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+.check-group h4{margin:0; font-size:14px;}
+.check-group .cgscore{margin-left:auto; font-family:var(--mono); font-weight:700; color:var(--navy-800); font-size:13.5px;}
+.check-item{display:flex; align-items:flex-start; gap:9px; padding:8px 0; border-top:1px solid var(--line); font-size:13px; color:var(--ink-2);}
+.check-item:first-of-type{border-top:none;}
+.check-item input{margin-top:2px; width:16px; height:16px; accent-color:var(--teal-500); flex-shrink:0; cursor:pointer;}
+.check-item label{cursor:pointer;}
+.score-summary{
+  margin-top:20px; background:linear-gradient(155deg,var(--navy-800),var(--navy-600)); border-radius:14px;
+  padding:20px 24px; display:flex; flex-wrap:wrap; gap:22px; align-items:center; color:#fff;
+}
+.score-summary .ssbig{font-family:var(--mono); font-size:38px; font-weight:800;}
+.score-summary .sslabel{font-size:12px; color:#9fd8d0; text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+.reset-btn{
+  margin-left:auto; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); color:#fff;
+  font:inherit; font-weight:700; font-size:12.5px; padding:9px 16px; border-radius:9px; cursor:pointer;
+}
+.reset-btn:hover{background:rgba(255,255,255,.2);}
+
+footer{text-align:center; padding:26px 20px; color:var(--ink-muted); font-size:12px;}
+
+@media(max-width:640px){
+  .hbar-row{grid-template-columns:100px 1fr 44px;}
+  .toggle-btn{padding:9px 14px; font-size:12.5px;}
+  h1.brand-title{font-size:20px;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div>
+      <p class="brand-eyebrow">Chương trình đào tạo nghiệp vụ điện thoại viên</p>
+      <h1 class="brand-title">Trần Thanh Thủy · Tổng đài 18001166 — Miền Trung</h1>
+      <div class="meta-row">
+        <span>Tài khoản: <b>dng_agent_4069</b></span>
+        <span>Phạm vi dữ liệu: <b>07/07/2026 – 21/07/2026</b></span>
+        <span>Nguồn: <b>Hệ thống chấm điểm AI Emas</b></span>
+        <span>Tổng số cuộc gọi: <b>734</b></span>
+      </div>
+    </div>
+    <div class="toggle-group" role="tablist">
+      <button class="toggle-btn active" id="btn-gv" onclick="showView('gv')">📋 Giảng viên</button>
+      <button class="toggle-btn" id="btn-dtv" onclick="showView('dtv')">🎧 ĐTV thực hành</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ PHẦN GIẢNG VIÊN ============ -->
+<section class="view active" id="view-gv">
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">1</span>Tổng quan điểm trung bình 4 trục</h2>
+    <p class="block-sub">Tính trên 692 cuộc gọi được AI chấm điểm đầy đủ (734 cuộc gọi đến, 42 cuộc dưới 30 giây không đủ dữ liệu để chấm).</p>
+    <div class="tile-grid">
+      <div class="tile hero">
+        <div class="tlabel">Điểm trung bình chung</div>
+        <div class="tvalue">9.92<small>/10</small></div>
+        <div class="meter-track"><div class="meter-fill" style="width:99.2%"></div></div>
+        <div class="tsub">89% cuộc gọi (616/692) đạt điểm tuyệt đối cả 4 trục</div>
+      </div>
+      <div class="tile">
+        <div class="tlabel">Tuân thủ quy trình</div>
+        <div class="tvalue">9.90<small>/10</small></div>
+        <div class="meter-track"><div class="meter-fill" style="width:99%"></div></div>
+        <div class="tsub">Trục yếu nhất trong nhóm case cần cải thiện</div>
+      </div>
+      <div class="tile">
+        <div class="tlabel">Thái độ chuyên nghiệp</div>
+        <div class="tvalue">9.93<small>/10</small></div>
+        <div class="meter-track"><div class="meter-fill" style="width:99.3%"></div></div>
+        <div class="tsub">97,1% cuộc gọi ĐTV giữ giọng bình thường</div>
+      </div>
+      <div class="tile">
+        <div class="tlabel">Tinh thần trách nhiệm</div>
+        <div class="tvalue">9.95<small>/10</small></div>
+        <div class="meter-track"><div class="meter-fill" style="width:99.5%"></div></div>
+        <div class="tsub">Điểm cao nhất — nhưng chứa các ca lỗi nặng nhất</div>
+      </div>
+      <div class="tile">
+        <div class="tlabel">Kỹ năng giao tiếp</div>
+        <div class="tvalue">9.88<small>/10</small></div>
+        <div class="meter-track"><div class="meter-fill" style="width:98.8%"></div></div>
+        <div class="tsub">Trục thấp thứ 2, liên quan xác nhận & kết thúc cuộc gọi</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="tile-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));">
+      <div class="tile"><div class="tlabel">Hài lòng dịch vụ</div><div class="tvalue" style="font-size:22px;">594<small>/699</small></div><div class="tsub">85% — 58 không hài lòng, chủ yếu do hạ tầng kỹ thuật</div></div>
+      <div class="tile"><div class="tlabel">Hài lòng với ĐTV</div><div class="tvalue" style="font-size:22px;">689<small>/699</small></div><div class="tsub">98,6% — cao hơn hẳn hài lòng dịch vụ chung</div></div>
+      <div class="tile"><div class="tlabel">Lỗi do chính ĐTV</div><div class="tvalue" style="font-size:22px;">10<small>/734</small></div><div class="tsub">1,4% — nhóm case trọng tâm để đào tạo</div></div>
+      <div class="tile"><div class="tlabel">Cuộc gọi bị cảnh báo hệ thống</div><div class="tvalue" style="font-size:22px;">19<small>/734</small></div><div class="tsub">8 đàm thoại 1 chiều · 8 dài &gt;10 phút · 3 im lặng &gt;1 phút</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">2</span>3 vấn đề nghiệp vụ trọng tâm</h2>
+    <p class="block-sub">Không phải lỗi ngẫu nhiên từng cuộc — đây là các mẫu lặp lại xuyên suốt nhóm cuộc gọi điểm thấp và toàn bộ 10 ca bị gắn "lý do không hài lòng do ĐTV".</p>
+
+    <div class="issue-card" style="border-left-color:var(--critical);">
+      <div class="ihead">
+        <span class="itag">Trục: Quy trình + Trách nhiệm</span>
+        <h3>1. Tra cứu / xác thực thông tin thuê bao thất bại</h3>
+        <span class="icount">8/10 ca lỗi ĐTV · 2 cuộc điểm thấp nhất</span>
+      </div>
+      <p>Khi số điện thoại khách đọc không khớp dữ liệu hệ thống, ĐTV lặp lại đúng yêu cầu cũ ("đọc lại số điện thoại giúp em") thay vì chuyển sang kênh xác thực khác. Khách phải đọc đi đọc lại, mất kiên nhẫn, có ca khách tự ý kết thúc cuộc gọi.</p>
+      <div class="quote-block">"Tổng đài viên liên tục lặp lại sai só số điện thoại, địa chỉ và không xác định được thông tin khách hàng, khiến khách hàng nghi ngờ năng lực xử lý vấn đề."<cite>ID 453075491 · Điểm TB 4.38/10 — thấp nhất trong 734 cuộc</cite></div>
+      <div class="quote-block">"Tổng đài viên xử lý vụng về, không thể tìm thấy thông tin thuê bao dù khách hàng đã cung cấp số điện thoại, dẫn đến khách hàng mất kiên nhẫn và có thái độ gay gắt."<cite>ID 450779088 · Điểm TB 5.63/10</cite></div>
+      <div class="fix-box"><b>Cách khắc phục:</b> Khi kênh tra cứu đầu tiên (SĐT) không ra kết quả sau 1 lần thử, chủ động chuyển ngay sang kênh thứ 2 (địa chỉ lắp đặt / số hợp đồng / số serial modem) thay vì lặp lại y hệt yêu cầu ban đầu. Đọc số điện thoại theo từng cụm 3 số để xác nhận chéo.</div>
+    </div>
+
+    <div class="issue-card">
+      <div class="ihead">
+        <span class="itag">Trục: Trách nhiệm</span>
+        <h3>2. Thiếu cam kết thời gian xử lý cụ thể</h3>
+        <span class="icount">4/10 ca lỗi ĐTV</span>
+      </div>
+      <p>Khi chưa thể xử lý dứt điểm trong cuộc gọi, ĐTV chỉ xin lỗi hoặc nói "đang sửa" mà không gắn một mốc thời gian rõ ràng, khiến khách cảm thấy bị bỏ mặc và không biết khi nào được hỗ trợ.</p>
+      <div class="quote-block">"Tổng đài viên không cung cấp giải pháp cụ thể, chỉ phản hồi lại thông tin khách hàng đã cung cấp mà không có hành động xử lý hoặc cam kết thời gian phản hồi rõ ràng, khiến khách hàng cảm thấy không được quan tâm."<cite>ID 452776481</cite></div>
+      <div class="quote-block">"...chỉ yêu cầu khách hàng thử lại thiết bị và không đưa ra cam kết rõ ràng. Khách hàng cảm thấy bị bỏ mặc khi nhân viên liên tục nói 'đang sửa' nhưng không có tiến triển."<cite>ID 453611465</cite></div>
+      <div class="fix-box"><b>Cách khắc phục:</b> Luôn gắn con số cụ thể vào cam kết ("trong vòng 8 tiếng", "trong 24h", "trong 30 phút") thay vì trạng từ mơ hồ như "đang xử lý", "sẽ sớm". Nếu có thể, kiểm tra lịch sử báo lỗi trước khi hẹn lại để tránh hẹn giống hệt lần trước.</div>
+    </div>
+
+    <div class="issue-card" style="border-left-color:var(--warning);">
+      <div class="ihead">
+        <span class="itag">Trục: Thái độ + Giao tiếp</span>
+        <h3>3. Thiếu đồng cảm khi khách đã gọi lại nhiều lần</h3>
+        <span class="icount">2/10 ca lỗi ĐTV — mức độ bức xúc khách cao nhất</span>
+      </div>
+      <p>Với khách đã gọi báo sự cố nhiều lần trước đó, việc chỉ lặp lại quy trình chuẩn mà không ghi nhận riêng "đây là lần thứ N" hoặc chuyển nhánh để né tránh khiến sự bất mãn tích lũy tăng thêm.</p>
+      <div class="quote-block">"Tổng đài viên không đảm bảo kỹ thuật viên liên hệ lại cho khách hàng, không giải quyết triệt để khiếu nại về thời gian chờ lâu và thái độ ứng xử thiếu kiên nhẫn, không đồng cảm với khách hàng."<cite>ID 454269335</cite></div>
+      <div class="quote-block">"Hành vi chuyển nhánh 3 khi khách hàng chưa hài lòng làm tăng sự bất mãn."<cite>ID 450314254</cite></div>
+      <div class="fix-box"><b>Cách khắc phục:</b> Khi khách nêu rõ số lần đã gọi/đã chờ, nhắc lại chính xác con số đó bằng lời để khách cảm thấy được lắng nghe, rồi mới đề xuất hướng xử lý ưu tiên. Tránh chuyển nhánh như một cách kết thúc cuộc gọi khi khách chưa được giải quyết.</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">3</span>Điểm mạnh cần duy trì</h2>
+    <div class="strength-list">
+      <div class="strength-item"><b>Kiểm soát cảm xúc tốt</b>97,1% cuộc gọi ĐTV giữ giọng điềm tĩnh, dù 34,4% khách hàng ở trạng thái cao giọng/không hài lòng/gay gắt.</div>
+      <div class="strength-item"><b>Nền tảng kịch bản chuẩn hoá</b>Câu mở đầu ("Em có thể hỗ trợ anh/chị điều gì ạ?") và câu kết thúc ("Anh/chị còn cần hỗ trợ gì thêm không ạ?") được dùng nhất quán ở phần lớn cuộc gọi thành công.</div>
+      <div class="strength-item"><b>Khách đánh giá cao thái độ cá nhân</b>98,6% khách "Hài lòng với ĐTV" — cao hơn hẳn tỷ lệ hài lòng dịch vụ chung (85%), cho thấy dù hạ tầng kỹ thuật có vấn đề, cách phục vụ vẫn giữ được thiện cảm khách hàng.</div>
+      <div class="strength-item"><b>Tỷ lệ cuộc gọi bất thường thấp</b>Chỉ 2,6% (19/734) cuộc gọi bị hệ thống cảnh báo (đàm thoại một chiều, quá dài, hoặc có khoảng lặng lớn).</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">4</span>Giáo án đào tạo — 5 buổi</h2>
+    <p class="block-sub">Mỗi buổi bám sát đúng 1 trong 4 trục điểm sẵn có trong dữ liệu Emas, để đo lường tiến bộ trực tiếp trên báo cáo AI của kỳ tiếp theo.</p>
+    <div class="table-scroll">
+    <table class="plan-table">
+      <thead><tr><th style="width:70px;">Buổi</th><th style="width:150px;">Trọng tâm</th><th>Nội dung chính</th><th style="width:170px;">Hình thức</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="buoi-num">01</td>
+          <td><span class="axis-pill pill-qt">Quy trình</span></td>
+          <td>Chuẩn hoá bước xác thực thông tin: khi kênh SĐT không tra được, chuyển ngay sang địa chỉ/số hợp đồng/serial modem. Phân tích 2 ca điểm thấp nhất (453075491, 450779088).</td>
+          <td>Xem lại ghi âm + thảo luận nhóm</td>
+        </tr>
+        <tr>
+          <td class="buoi-num">02</td>
+          <td><span class="axis-pill pill-tn">Trách nhiệm</span></td>
+          <td>Kỹ thuật đưa cam kết thời gian cụ thể thay vì "đang sửa"; kiểm tra lịch sử báo lỗi trước khi hẹn lại. Phân tích 3 ca (452776481, 453611465, 450825134).</td>
+          <td>Luyện tập cặp đôi + phản hồi chéo</td>
+        </tr>
+        <tr>
+          <td class="buoi-num">03</td>
+          <td><span class="axis-pill pill-td">Thái độ</span></td>
+          <td>Xoa dịu khách đã gọi lại nhiều lần; giữ bình tĩnh khi khách cao giọng/gay gắt (34,4% cuộc gọi); tránh chuyển nhánh né tránh. Phân tích ca 454269335, 450314254.</td>
+          <td>Đóng vai (role-play)</td>
+        </tr>
+        <tr>
+          <td class="buoi-num">04</td>
+          <td><span class="axis-pill pill-gt">Giao tiếp</span></td>
+          <td>Nhắc lại thông tin để xác nhận đã hiểu đúng, dùng câu hỏi mở, chuẩn kết thúc cuộc gọi (hỏi thêm nhu cầu + cảm ơn). Đối chiếu với các cuộc gọi đạt điểm tuyệt đối làm mẫu.</td>
+          <td>Luyện tập theo kịch bản mẫu</td>
+        </tr>
+        <tr>
+          <td class="buoi-num">05</td>
+          <td><span class="axis-pill pill-tk">Tổng kết</span></td>
+          <td>Đóng vai toàn bộ quy trình dựa trên 5 case study điểm thấp nhất; tự chấm điểm theo checklist 4 trục; phản hồi 1-1 với giảng viên.</td>
+          <td>Mô phỏng cuộc gọi đầy đủ + tự chấm</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">5</span>5 case study điểm thấp nhất</h2>
+    <div id="case-list"></div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">6</span>Phân bố dữ liệu</h2>
+    <div class="tile-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="chart-card">
+        <h4>Trạng thái cảm xúc khách hàng</h4>
+        <div class="chart-note">Thang mức độ leo thang, một màu (xanh dương) đậm dần — 692 cuộc gọi có ghi nhận cảm xúc</div>
+        <div id="chart-emotion"></div>
+      </div>
+      <div class="chart-card">
+        <h4>Chủ đề nghiệp vụ nhiều nhất</h4>
+        <div class="chart-note">Top 6/15 chủ đề theo số lượng cuộc gọi (tổng 734)</div>
+        <div id="chart-topic"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">7</span>Cuộc gọi cần nghe lại (QA ticket)</h2>
+    <p class="block-sub">23 cuộc gọi ưu tiên nghe lại: nhóm điểm thấp nhất + toàn bộ 10 ca có "lý do không hài lòng do ĐTV". Sắp xếp theo mức độ nghiêm trọng.</p>
+    <div class="ticket-grid" id="ticket-list"></div>
+  </div>
+
+</section>
+
+<!-- ============ PHẦN ĐTV THỰC HÀNH ============ -->
+<section class="view" id="view-dtv">
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">1</span>Quy trình chuẩn cho một cuộc gọi</h2>
+    <p class="block-sub">Rút ra từ các cuộc gọi đạt điểm cao nhất trong dữ liệu thực tế — đây là khung để bám theo, không phải kịch bản học thuộc lòng.</p>
+    <ol class="step-list">
+      <li><b>Mở đầu — chào & hỏi nhu cầu rõ ràng</b>Xưng tên, hỏi thẳng khách cần hỗ trợ gì ngay từ câu đầu tiên, không để khách phải tự dẫn dắt cuộc gọi.</li>
+      <li><b>Xác thực thông tin qua ít nhất 2 kênh</b>Hỏi số điện thoại; nếu không tra được ngay, chuyển sang địa chỉ lắp đặt hoặc số hợp đồng/serial modem — không lặp lại y hệt yêu cầu cũ.</li>
+      <li><b>Ghi nhận & mô tả lại sự cố</b>Nhắc lại đúng những gì khách vừa mô tả để xác nhận đã hiểu đúng vấn đề trước khi xử lý.</li>
+      <li><b>Kiểm tra bước cơ bản</b>Hướng dẫn khởi động lại thiết bị/modem, kiểm tra đèn tín hiệu trước khi chuyển kỹ thuật, tránh chuyển việc ngay khi chưa loại trừ nguyên nhân đơn giản.</li>
+      <li><b>Nếu chưa xử lý được ngay — cam kết thời gian cụ thể</b>Luôn có một con số kèm theo: "trong vòng 8 tiếng", "trong 24h", "trong 30 phút" — không dùng từ mơ hồ.</li>
+      <li><b>Đọc lại số điện thoại liên hệ</b>Xác nhận lại số điện thoại kỹ thuật sẽ dùng để liên hệ khách, tránh sai lệch thông tin bàn giao.</li>
+      <li><b>Kết thúc — hỏi thêm & cảm ơn</b>"Anh/chị còn cần hỗ trợ gì thêm không ạ?" rồi cảm ơn khách đã gọi đến VNPT.</li>
+    </ol>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">2</span>Thư viện câu nói mẫu</h2>
+    <p class="block-sub">Trích trực tiếp từ các cuộc gọi thực tế trong dữ liệu — chia theo giai đoạn cuộc gọi.</p>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('modau')">Mở đầu</button>
+      <button class="tab-btn" onclick="showTab('xacthuc')">Xác thực thông tin</button>
+      <button class="tab-btn" onclick="showTab('buxuc')">Xử lý khách bức xúc</button>
+      <button class="tab-btn" onclick="showTab('camket')">Cam kết thời gian</button>
+      <button class="tab-btn" onclick="showTab('ketthuc')">Kết thúc</button>
+    </div>
+    <div class="tab-panel active" id="tab-modau">
+      <ul class="script-list">
+        <li>Dạ chào chị, em là Thủy từ VNPT. Em có thể hỗ trợ chị điều gì ạ?</li>
+        <li>Em có thể hỗ trợ anh/chị điều gì ạ?</li>
+        <li>Dạ em có thể hỗ trợ gì cho chị ạ?</li>
+        <li>Chào anh/chị, em có thể hỗ trợ gì cho anh/chị ạ?</li>
+        <li>Dạ anh/chị cần em hỗ trợ gì ạ?</li>
+      </ul>
+    </div>
+    <div class="tab-panel" id="tab-xacthuc">
+      <ul class="script-list">
+        <li>Chị vui lòng cung cấp tên và số điện thoại để em kiểm tra giúp chị ạ</li>
+        <li>Chị có thể xác nhận lại số 0888xxxxxx là của chị không ạ?</li>
+        <li>Anh/chị vui lòng đọc lại địa chỉ để em ghi nhận chính xác được không ạ?</li>
+        <li>Chị có thể cung cấp số điện thoại hoặc tên chủ thuê bao để em kiểm tra nhanh hơn ạ</li>
+        <li>Em xin kiểm tra lịch sử dịch vụ của chị để xác nhận tình trạng trước đây ạ</li>
+        <li>Anh vui lòng xác nhận lại địa chỉ cụ thể để em báo chính xác cho kỹ thuật nhé</li>
+      </ul>
+    </div>
+    <div class="tab-panel" id="tab-buxuc">
+      <ul class="script-list">
+        <li>Em xin lỗi vì sự bất tiện này, mong anh thông cảm ạ</li>
+        <li>Em rất tiếc khi nghe anh gặp sự cố, em sẽ kiểm tra ngay cho anh</li>
+        <li>Em xin lỗi vì phải giữ anh/chị chờ, em sẽ nhanh chóng hỗ trợ để giải quyết vấn đề này</li>
+        <li>Em xin lỗi vì sự bất tiện này, em sẽ kiểm tra lại tình trạng kỹ thuật và gọi lại cho chị trong 30 phút tới để cập nhật tiến độ</li>
+        <li>Em rất tiếc vì anh gặp phải vấn đề này, em sẽ nhanh chóng hỗ trợ để khắc phục</li>
+      </ul>
+    </div>
+    <div class="tab-panel" id="tab-camket">
+      <ul class="script-list">
+        <li>Em sẽ báo sửa trong vòng 8 giờ và gọi lại anh khi có kết quả</li>
+        <li>Em sẽ đôn đốc kỹ thuật viên đến kiểm tra trong 8 tiếng tới, nếu chưa xử lý xong em sẽ gọi lại ngay ạ</li>
+        <li>Em sẽ kiểm tra và gọi lại cho anh/chị trong vòng 24h để cập nhật tiến độ</li>
+        <li>Em sẽ báo kỹ thuật kiểm tra trong 8 tiếng và liên hệ lại qua Zalo nếu cần</li>
+        <li>Em sẽ kiểm tra ngay và gọi lại cho anh trong vòng 30 phút ạ</li>
+        <li>Em sẽ chuyển yêu cầu này cho kỹ thuật viên và họ sẽ đến trong vòng 8 tiếng. Em sẽ theo dõi để đảm bảo xử lý nhanh nhất!</li>
+      </ul>
+    </div>
+    <div class="tab-panel" id="tab-ketthuc">
+      <ul class="script-list">
+        <li>Anh/chị còn cần hỗ trợ thêm điều gì không ạ? Em xin cảm ơn anh/chị đã gọi đến VNPT!</li>
+        <li>Dạ, em xin cảm ơn anh/chị đã gọi đến VNPT. Chúc anh/chị một ngày tốt lành!</li>
+        <li>Chị còn cần em hỗ trợ thêm điều gì không ạ?</li>
+        <li>Anh/chị còn cần hỗ trợ thêm điều gì không ạ? Cảm ơn anh/chị đã gọi đến VNPT, chúc anh/chị một ngày tốt lành!</li>
+        <li>Cảm ơn chị đã gọi đến VNPT, em xin phép không yêu cầu đánh giá để tránh làm phiền chị ạ!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">3</span>Mô phỏng tình huống</h2>
+    <p class="block-sub">4 tình huống dựng lại từ các ca thật trong dữ liệu — mỗi tình huống ứng với 1 trục điểm. Chọn phản hồi phù hợp nhất.</p>
+
+    <div class="scenario">
+      <span class="sc-tag" style="background:var(--seq-450);">Trục: Quy trình — Tra cứu thông tin</span>
+      <div class="kh-bubble"><b>Khách hàng nói</b>"Anh đọc số điện thoại nãy giờ mấy lần rồi sao em vẫn chưa tìm ra vậy? Anh đang bận lắm đó."</div>
+      <div class="choice-list" data-scenario="s1">
+        <button class="choice-btn" data-correct="true">"Dạ anh đọc lại giúp em từng cụm 3 số nhé, đồng thời anh cho em xin thêm địa chỉ lắp đặt hoặc số hợp đồng để em đối chiếu nhanh hơn ạ."</button>
+        <button class="choice-btn">"Dạ anh đọc lại số điện thoại giúp em ạ."</button>
+        <button class="choice-btn">"Dạ hệ thống không tìm thấy, anh vui lòng gọi lại sau ạ."</button>
+      </div>
+      <div class="feedback" id="fb-s1"></div>
+    </div>
+
+    <div class="scenario">
+      <span class="sc-tag" style="background:#c9762e;">Trục: Trách nhiệm — Cam kết thời gian</span>
+      <div class="kh-bubble"><b>Khách hàng nói</b>"Tôi báo hỏng từ chiều hôm qua tới giờ vẫn chưa ai tới, cứ nói đang sửa hoài là sao?"</div>
+      <div class="choice-list" data-scenario="s2">
+        <button class="choice-btn" data-correct="true">"Dạ em xin lỗi vì sự chậm trễ này. Em xin báo cụ thể: kỹ thuật sẽ liên hệ anh trong vòng 8 tiếng tới, nếu quá giờ chưa thấy gọi, anh gọi lại tổng đài em sẽ đôn đốc ngay ạ."</button>
+        <button class="choice-btn">"Dạ hiện đang sửa rồi anh chờ thêm chút nữa nhé."</button>
+        <button class="choice-btn">"Dạ để em chuyển anh sang bộ phận kỹ thuật ạ."</button>
+      </div>
+      <div class="feedback" id="fb-s2"></div>
+    </div>
+
+    <div class="scenario">
+      <span class="sc-tag" style="background:#7a4fc9;">Trục: Thái độ — Khách gọi lại nhiều lần</span>
+      <div class="kh-bubble"><b>Khách hàng nói (gay gắt)</b>"Đây là lần thứ 4 tôi gọi cái này rồi đó, mấy người làm ăn kiểu gì vậy?"</div>
+      <div class="choice-list" data-scenario="s3">
+        <button class="choice-btn" data-correct="true">"Dạ em rất hiểu sự bất tiện khi anh phải gọi đến lần thứ 4, em xin lỗi vì trải nghiệm chưa tốt. Em ghi nhận và chuyển ưu tiên xử lý ngay hôm nay, em sẽ gọi lại xác nhận với anh trước 5 giờ chiều ạ."</button>
+        <button class="choice-btn">"Dạ để em chuyển anh qua nhánh 3 để được hỗ trợ ạ."</button>
+        <button class="choice-btn">"Dạ hệ thống em thấy vẫn đang xử lý bình thường ạ."</button>
+      </div>
+      <div class="feedback" id="fb-s3"></div>
+    </div>
+
+    <div class="scenario">
+      <span class="sc-tag" style="background:var(--teal-500);">Trục: Giao tiếp — Kết thúc cuộc gọi</span>
+      <div class="kh-bubble"><b>Khách hàng nói</b>"Ok vậy được rồi đó."</div>
+      <div class="choice-list" data-scenario="s4">
+        <button class="choice-btn" data-correct="true">"Dạ em xin phép nhắc lại: kỹ thuật sẽ liên hệ anh trong vòng 8 tiếng. Anh còn cần em hỗ trợ thêm gì không ạ? Em cảm ơn anh đã gọi đến VNPT, chúc anh ngày tốt lành!"</button>
+        <button class="choice-btn">"Dạ vậy thôi ạ, chào anh."</button>
+        <button class="choice-btn">(im lặng rồi cúp máy)</button>
+      </div>
+      <div class="feedback" id="fb-s4"></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">4</span>Tự chấm điểm sau cuộc gọi</h2>
+    <p class="block-sub">Checklist theo đúng 4 trục điểm Emas — mỗi mục 2.5 điểm, tổng 10 điểm/trục. Tự đánh giá ngay sau khi kết thúc cuộc gọi.</p>
+
+    <div class="checklist-grid">
+      <div class="check-group" data-group="qt">
+        <div class="cghead"><span class="axis-pill pill-qt" style="margin:0;">Quy trình</span><h4></h4><span class="cgscore" id="score-qt">0.0/10</span></div>
+        <div class="check-item"><input type="checkbox" id="qt1"><label for="qt1">Chào hỏi + hỏi rõ nhu cầu ngay từ câu đầu</label></div>
+        <div class="check-item"><input type="checkbox" id="qt2"><label for="qt2">Xác thực qua ≥2 kênh, không lặp lại y hệt khi thất bại</label></div>
+        <div class="check-item"><input type="checkbox" id="qt3"><label for="qt3">Kiểm tra bước cơ bản trước khi chuyển kỹ thuật</label></div>
+        <div class="check-item"><input type="checkbox" id="qt4"><label for="qt4">Kiểm tra lịch sử báo lỗi trước khi hẹn lịch mới</label></div>
+      </div>
+      <div class="check-group" data-group="td">
+        <div class="cghead"><span class="axis-pill pill-td" style="margin:0;">Thái độ</span><h4></h4><span class="cgscore" id="score-td">0.0/10</span></div>
+        <div class="check-item"><input type="checkbox" id="td1"><label for="td1">Giữ giọng điềm tĩnh dù khách cao giọng/gay gắt</label></div>
+        <div class="check-item"><input type="checkbox" id="td2"><label for="td2">Dùng câu xin lỗi cụ thể, đúng lúc</label></div>
+        <div class="check-item"><input type="checkbox" id="td3"><label for="td3">Không im lặng kéo dài, không để khách cảm thấy bị phớt lờ</label></div>
+        <div class="check-item"><input type="checkbox" id="td4"><label for="td4">Không chuyển nhánh/chuyển máy để né tránh khi khách chưa được xử lý</label></div>
+      </div>
+      <div class="check-group" data-group="tn">
+        <div class="cghead"><span class="axis-pill pill-tn" style="margin:0;">Trách nhiệm</span><h4></h4><span class="cgscore" id="score-tn">0.0/10</span></div>
+        <div class="check-item"><input type="checkbox" id="tn1"><label for="tn1">Cam kết thời gian cụ thể bằng số, không nói chung chung</label></div>
+        <div class="check-item"><input type="checkbox" id="tn2"><label for="tn2">Chủ động đề xuất phương án khi chưa giải quyết được ngay</label></div>
+        <div class="check-item"><input type="checkbox" id="tn3"><label for="tn3">Ghi nhận đúng và đọc lại số điện thoại liên hệ</label></div>
+        <div class="check-item"><input type="checkbox" id="tn4"><label for="tn4">Theo dõi/đôn đốc đúng như đã cam kết, không hứa suông</label></div>
+      </div>
+      <div class="check-group" data-group="gt">
+        <div class="cghead"><span class="axis-pill pill-gt" style="margin:0;">Giao tiếp</span><h4></h4><span class="cgscore" id="score-gt">0.0/10</span></div>
+        <div class="check-item"><input type="checkbox" id="gt1"><label for="gt1">Nhắc lại thông tin khách vừa cung cấp để xác nhận</label></div>
+        <div class="check-item"><input type="checkbox" id="gt2"><label for="gt2">Dùng câu hỏi mở để khách trình bày rõ vấn đề</label></div>
+        <div class="check-item"><input type="checkbox" id="gt3"><label for="gt3">Hỏi khách còn cần hỗ trợ gì thêm trước khi kết thúc</label></div>
+        <div class="check-item"><input type="checkbox" id="gt4"><label for="gt4">Cảm ơn và chào kết thúc đúng chuẩn</label></div>
+      </div>
+    </div>
+
+    <div class="score-summary">
+      <div>
+        <div class="sslabel">Điểm trung bình chung</div>
+        <div class="ssbig" id="score-total">0.0<span style="font-size:18px;font-weight:600;">/10</span></div>
+      </div>
+      <div style="font-size:13px; color:#c3d4de; max-width:320px;">So sánh với điểm trung bình hiện tại của toàn bộ dữ liệu: <b style="color:#fff;">9.92/10</b></div>
+      <button class="reset-btn" onclick="resetChecklist()">Làm lại</button>
+    </div>
+  </div>
+
+</section>
+
+</div>
+
+<footer>Dựng từ dữ liệu phân tích cuộc gọi thực tế (Emas AI) · 734 cuộc gọi · 07/07/2026 – 21/07/2026 · Tài liệu nội bộ đào tạo — không dùng cho mục đích khác</footer>
+
+<script>
+// ---------- View toggle (GV / ĐTV) ----------
+function showView(v){
+  document.getElementById('view-gv').classList.toggle('active', v==='gv');
+  document.getElementById('view-dtv').classList.toggle('active', v==='dtv');
+  document.getElementById('btn-gv').classList.toggle('active', v==='gv');
+  document.getElementById('btn-dtv').classList.toggle('active', v==='dtv');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---------- Script library tabs ----------
+function showTab(name){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ---------- Scenario feedback ----------
+const feedbackText = {
+  s1: {
+    correct: "Đúng hướng: khi một kênh tra cứu thất bại, chuyển ngay sang kênh thứ 2 (địa chỉ/hợp đồng) thay vì lặp lại y hệt — đây chính là nguyên nhân khiến 2 cuộc gọi thấp điểm nhất trong dữ liệu (4.38đ và 5.63đ) bị đánh giá thấp.",
+    wrong1: "Cần điều chỉnh: lặp lại y hệt yêu cầu cũ mà không đổi cách tiếp cận là đúng lỗi đã khiến khách hàng trong ca thực tế mất kiên nhẫn và có thái độ gay gắt (ID 450779088).",
+    wrong2: "Sai: từ chối hỗ trợ và yêu cầu khách tự gọi lại là mức độ nghiêm trọng hơn — khách sẽ cảm thấy bị bỏ mặc hoàn toàn."
+  },
+  s2: {
+    correct: "Đúng hướng: có con số cụ thể (8 tiếng) và có phương án nếu quá hạn — đúng cách khắc phục cho lỗi 'chỉ hứa suông' xuất hiện ở 4/10 ca lỗi ĐTV trong dữ liệu.",
+    wrong1: "Cần điều chỉnh: đây chính xác là câu bị AI phê bình trong ca thực tế (ID 453611465) — 'liên tục nói đang sửa nhưng không có tiến triển' khiến khách cảm thấy bị bỏ mặc.",
+    wrong2: "Cần điều chỉnh: chuyển nhánh ngay mà không xử lý gì trước là hành vi bị phê bình ở ca ID 450314254 vì 'làm tăng sự bất mãn' khi khách chưa được giải quyết."
+  },
+  s3: {
+    correct: "Đúng hướng: ghi nhận cụ thể số lần khách đã gọi trước khi đề xuất hướng xử lý — đây là điều còn thiếu ở ca thực tế bị phê bình 'thiếu kiên nhẫn, không đồng cảm' (ID 454269335).",
+    wrong1: "Cần điều chỉnh: chuyển nhánh khi khách đang bức xúc và chưa được xử lý đúng là hành vi bị phê bình trực tiếp trong dữ liệu (ID 450314254).",
+    wrong2: "Sai: phủ nhận trải nghiệm của khách ('vẫn đang xử lý bình thường') sẽ khiến sự bức xúc leo thang mạnh hơn."
+  },
+  s4: {
+    correct: "Đúng hướng: nhắc lại cam kết, hỏi thêm nhu cầu, cảm ơn đúng chuẩn — đây là mẫu kết thúc xuất hiện nhất quán ở các cuộc gọi đạt điểm tuyệt đối trong dữ liệu.",
+    wrong1: "Cần điều chỉnh: kết thúc quá cụt, không xác nhận lại cam kết và không hỏi thêm nhu cầu — làm giảm điểm trục Giao tiếp dù vấn đề chính đã xử lý xong.",
+    wrong2: "Sai: kết thúc không rõ ràng khiến khách không chắc đã được ghi nhận đầy đủ hay chưa."
+  }
+};
+document.querySelectorAll('.choice-list').forEach(list=>{
+  const key = list.dataset.scenario;
+  const buttons = list.querySelectorAll('.choice-btn');
+  buttons.forEach((btn,i)=>{
+    btn.addEventListener('click', ()=>{
+      if(btn.disabled) return;
+      buttons.forEach(b=>b.disabled=true);
+      const isCorrect = btn.dataset.correct === 'true';
+      btn.classList.add(isCorrect?'correct':'wrong');
+      const fb = document.getElementById('fb-'+key);
+      fb.classList.add('show', isCorrect?'ok':'bad');
+      const msgKey = isCorrect ? 'correct' : (i===1?'wrong1':'wrong2');
+      fb.innerHTML = '<b>'+(isCorrect?'✓ Phù hợp':'✗ Cần điều chỉnh')+'</b>'+feedbackText[key][msgKey];
+    });
+  });
+});
+
+// ---------- Self-scoring checklist ----------
+function updateScores(){
+  const groups = ['qt','td','tn','gt'];
+  let total = 0;
+  groups.forEach(g=>{
+    let score = 0;
+    for(let i=1;i<=4;i++){
+      const el = document.getElementById(g+i);
+      if(el && el.checked) score += 2.5;
+    }
+    document.getElementById('score-'+g).textContent = score.toFixed(1)+'/10';
+    total += score;
+  });
+  document.getElementById('score-total').innerHTML = (total/4).toFixed(1)+'<span style="font-size:18px;font-weight:600;">/10</span>';
+}
+document.querySelectorAll('.check-item input[type=checkbox]').forEach(cb=>cb.addEventListener('change', updateScores));
+function resetChecklist(){
+  document.querySelectorAll('.check-item input[type=checkbox]').forEach(cb=>cb.checked=false);
+  updateScores();
+}
+
+// ---------- Case studies (rendered from real data, PII masked) ----------
+const cases = [
+  {id:'453075491_MT_VOICE', avg:'4.38', qt:5.0, td:3.3, tn:2.5, gt:6.7, time:'10/07/2026 · 1p31s', topic:'Phản ánh lỗi kết nối Internet',
+   desc:'Khách báo hỏng WiFi. ĐTV hỏi số điện thoại và địa chỉ nhưng liên tục xác nhận sai số, không chuyển sang kênh xác thực khác. Khách từ chối cung cấp thêm thông tin (mã modem) và tự kết thúc cuộc gọi để tự xử lý.',
+   lesson:'Ca thấp điểm nhất trong toàn bộ 734 cuộc gọi — nguyên nhân duy nhất là lỗi tra cứu lặp lại không đổi cách tiếp cận.'},
+  {id:'450779088_MT_VOICE', avg:'5.63', qt:10, td:3.3, tn:2.5, gt:6.7, time:'20/07/2026 · 2p00s', topic:'Phản ánh lỗi kết nối Internet',
+   desc:'Khách cao giọng vì ĐTV không tìm ra thuê bao dù đã đọc số điện thoại theo từng cụm nhiều lần. Khách yêu cầu dừng cuộc gọi giữa chừng.',
+   lesson:'Điểm Quy trình đạt tuyệt đối (10) nhưng Trách nhiệm và Thái độ sụt mạnh — cho thấy lỗi tra cứu ảnh hưởng lan sang các trục khác khi khách mất kiên nhẫn.'},
+  {id:'454245731_MT_VOICE', avg:'7.28', qt:10, td:3.3, tn:7.5, gt:8.3, time:'15/07/2026 · 14p53s (cảnh báo: cuộc gọi dài >10 phút)', topic:'Phản ánh lỗi kết nối MyTV',
+   desc:'Khách không truy cập được MyTV qua laptop dù xem được trên điện thoại. ĐTV hướng dẫn đổi trình duyệt và xoá thiết bị đã đăng nhập nhưng chưa xử lý dứt điểm sau gần 15 phút, thiếu đề xuất chủ động hẹn gọi lại kiểm tra kết quả.',
+   lesson:'Cuộc gọi càng kéo dài mà chưa chốt được hướng xử lý, điểm Thái độ càng dễ bị đánh giá thấp vì thiếu sự chủ động.'},
+  {id:'454244501_MT_VOICE', avg:'7.90', qt:10, td:3.3, tn:10, gt:8.3, time:'15/07/2026 · 4p17s', topic:'Phản ánh lỗi kết nối MyTV',
+   desc:'Thiết bị MyTV bị nóng và tự tắt. ĐTV xác minh thông tin, hẹn kỹ thuật đến kiểm tra ngày hôm sau, khách đồng ý. Điểm trừ chủ yếu ở Thái độ do khách xưng hô không trang trọng mà ĐTV chưa khéo léo điều chỉnh không khí cuộc gọi.',
+   lesson:'Xử lý kỹ thuật đúng (Trách nhiệm 10/10) không đồng nghĩa với trải nghiệm tốt nếu không khí cuộc gọi không được điều chỉnh phù hợp.'},
+  {id:'453782591_MT_VOICE', avg:'8.33', qt:8.3, td:6.7, tn:10, gt:8.3, time:'13/07/2026 · 2p07s', topic:'Khiếu nại chất lượng dịch vụ',
+   desc:'Khách đã gọi khoảng 34 lần trong nhiều ngày vì WiFi lỗi chưa xử lý dứt điểm ở một số hộ trong khu vực. ĐTV tiếp nhận đúng quy trình nhưng chưa thể trấn an được sự sốt ruột tích luỹ từ các lần gọi trước.',
+   lesson:'Với khách đã gọi lại nhiều lần, đúng quy trình chưa đủ — cần ghi nhận rõ lịch sử để khách cảm thấy được ưu tiên thực sự, không chỉ lặp lại kịch bản chuẩn.'}
+];
+document.getElementById('case-list').innerHTML = cases.map((c,i)=>`
+  <div class="case-card">
+    <div class="chead">
+      <span class="crank">#${i+1}</span>
+      <h3>${c.topic} <span style="font-family:var(--mono);font-weight:400;color:var(--ink-muted);font-size:12px;">· ${c.id} · ${c.time}</span></h3>
+      <span class="cavg">${c.avg}/10</span>
+    </div>
+    <div class="case-scores">
+      <div>Quy trình ${c.qt}</div><div>Thái độ ${c.td}</div><div>Trách nhiệm ${c.tn}</div><div>Giao tiếp ${c.gt}</div>
+    </div>
+    <p>${c.desc}</p>
+    <p><b style="color:var(--navy-800);">Bài học:</b> ${c.lesson}</p>
+  </div>
+`).join('');
+
+// ---------- Emotion chart (ordinal, one hue) ----------
+const emotionData = [
+  {label:'Bình thường', count:480, pct:65.4, step:'var(--seq-250)'},
+  {label:'Cao giọng', count:134, pct:18.3, step:'var(--seq-400)'},
+  {label:'Không hài lòng', count:97, pct:13.2, step:'var(--seq-550)'},
+  {label:'Gay gắt', count:21, pct:2.9, step:'var(--seq-700)'}
+];
+document.getElementById('chart-emotion').innerHTML = emotionData.map(d=>`
+  <div class="hbar-row">
+    <div class="hlabel">${d.label}</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:${d.pct}%; background:${d.step};"></div></div>
+    <div class="hval">${d.count}</div>
+  </div>
+`).join('');
+
+// ---------- Topic chart (sequential, single hue) ----------
+const topicData = [
+  {label:'Lỗi kết nối Internet', count:432},
+  {label:'Yêu cầu hỗ trợ kỹ thuật', count:61},
+  {label:'Lỗi kết nối MyTV', count:51},
+  {label:'Lỗi điện thoại', count:32},
+  {label:'Khiếu nại chất lượng DV', count:27},
+  {label:'Khiếu nại về cước', count:24}
+];
+const maxTopic = Math.max(...topicData.map(d=>d.count));
+document.getElementById('chart-topic').innerHTML = topicData.map(d=>`
+  <div class="hbar-row">
+    <div class="hlabel">${d.label}</div>
+    <div class="hbar-track"><div class="hbar-fill" style="width:${(d.count/maxTopic*100).toFixed(1)}%;"></div></div>
+    <div class="hval">${d.count}</div>
+  </div>
+`).join('');
+
+// ---------- Ticket list (real data, PII-free) ----------
+const tickets = [
+  {id:'453075491', avg:4.38, sev:'critical', label:'Nghiêm trọng', time:'10/07 · 1p31s', topic:'Lỗi kết nối Internet', emo:'bình thường', reason:'Lặp lại sai số điện thoại/địa chỉ nhiều lần, không xác định được thông tin khách hàng.', s:[5.0,3.3,2.5,6.7]},
+  {id:'450779088', avg:5.63, sev:'critical', label:'Nghiêm trọng', time:'20/07 · 2p00s', topic:'Lỗi kết nối Internet', emo:'cao giọng', reason:'Không tìm được thuê bao dù khách cung cấp SĐT nhiều lần, khách mất kiên nhẫn.', s:[10,3.3,2.5,6.7]},
+  {id:'454245731', avg:7.28, sev:'serious', label:'Cần cải thiện', time:'15/07 · 14p53s ⚠ >10ph', topic:'Lỗi kết nối MyTV', emo:'bình thường', reason:'Cuộc gọi kéo dài, chưa xử lý dứt điểm, thiếu chủ động hẹn gọi lại kiểm tra kết quả.', s:[10,3.3,7.5,8.3]},
+  {id:'454244501', avg:7.90, sev:'serious', label:'Cần cải thiện', time:'15/07 · 4p17s', topic:'Lỗi kết nối MyTV', emo:'cao giọng', reason:'Chưa khéo léo điều chỉnh không khí khi khách xưng hô không trang trọng.', s:[10,3.3,10,8.3]},
+  {id:'453782591', avg:8.33, sev:'warning', label:'Theo dõi', time:'13/07 · 2p07s', topic:'Khiếu nại chất lượng DV', emo:'bình thường', reason:'Khách đã gọi ~34 lần trước đó vì lỗi WiFi kéo dài, ĐTV chưa trấn an được sự sốt ruột tích luỹ.', s:[8.3,6.7,10,8.3]},
+  {id:'454228425', avg:8.35, sev:'warning', label:'Theo dõi', time:'15/07 · 1p57s', topic:'Khác', emo:'bình thường', reason:'Cảnh báo đàm thoại 1 chiều — không liên lạc được với khách.', s:[6.7,10,10,6.7]},
+  {id:'454169055', avg:8.35, sev:'warning', label:'Theo dõi', time:'15/07 · 2p24s', topic:'Lỗi kết nối Internet', emo:'bình thường', reason:'Không tra cứu được tài khoản dù khách cung cấp nhiều lần SĐT và số hợp đồng.', s:[6.7,6.7,10,10]},
+  {id:'452865439', avg:8.55, sev:'warning', label:'Theo dõi', time:'09/07 · 0p52s', topic:'Lỗi điện thoại', emo:'bình thường', reason:'Cảnh báo đàm thoại 1 chiều — không nghe rõ phản hồi khách, kết thúc không có hướng xử lý.', s:[6.7,10,7.5,10]},
+  {id:'452776481', avg:10, sev:'case', label:'Case đào tạo', time:'09/07 · 1p11s', topic:'Khiếu nại chất lượng DV', emo:'không hài lòng', reason:'Không có hành động xử lý hay cam kết thời gian rõ ràng, chỉ phản hồi lại thông tin khách đã cung cấp.', s:[10,10,10,10]},
+  {id:'452990685', avg:10, sev:'case', label:'Case đào tạo', time:'10/07 · 4p23s', topic:'Lỗi kết nối Internet', emo:'bình thường', reason:'Ban đầu không xác định chính xác địa chỉ/tài khoản, khách phải nhắc lại nhiều lần mới được xử lý.', s:[10,10,10,10]},
+  {id:'453023913', avg:10, sev:'case', label:'Case đào tạo', time:'10/07 · 4p50s', topic:'Lỗi kết nối Internet', emo:'không hài lòng', reason:'Không tìm được thông tin khách dù đã hỏi địa chỉ/SĐT, hướng dẫn đọc số serial không rõ ràng.', s:[10,10,10,10]},
+  {id:'453611465', avg:10, sev:'case', label:'Case đào tạo', time:'13/07 · 3p50s', topic:'Lỗi kết nối Internet', emo:'không hài lòng', reason:"Chỉ yêu cầu khách thử lại thiết bị, không cam kết rõ ràng — lặp lại 'đang sửa' không tiến triển.", s:[10,10,10,10]},
+  {id:'454269335', avg:10, sev:'case', label:'Case đào tạo', time:'15/07 · 3p14s', topic:'Lỗi kết nối Internet', emo:'không hài lòng', reason:'Không đảm bảo kỹ thuật liên hệ lại, thái độ thiếu kiên nhẫn và đồng cảm với khách chờ lâu.', s:[10,10,10,10]},
+  {id:'450260022', avg:10, sev:'case', label:'Case đào tạo', time:'18/07 · 4p18s', topic:'Lỗi kết nối Internet', emo:'bình thường', reason:"Không thể tạo phiếu báo hỏng mới, không đưa giải pháp thay thế hay cam kết thời gian cụ thể.", s:[10,10,10,10]},
+  {id:'450314254', avg:10, sev:'case', label:'Case đào tạo', time:'18/07 · 3p27s', topic:'Khiếu nại về cước', emo:'không hài lòng', reason:'Chuyển nhánh 3 khi khách chưa hài lòng, làm tăng sự bất mãn thay vì giải quyết trực tiếp.', s:[10,10,10,10]},
+  {id:'450825134', avg:10, sev:'case', label:'Case đào tạo', time:'20/07 · 2p38s', topic:'Lỗi kết nối Internet', emo:'không hài lòng', reason:'Chỉ xin lỗi và hứa gọi lại, không có hành động khắc phục ngay hay giải pháp cụ thể.', s:[10,10,10,10]},
+];
+const sevLabel = {critical:'b-critical', serious:'b-serious', warning:'b-warning', case:'b-case'};
+document.getElementById('ticket-list').innerHTML = tickets.map(t=>`
+  <div class="ticket">
+    <div class="thead">
+      <span class="tid">#${t.id}</span>
+      <span class="badge ${sevLabel[t.sev]}">${t.label}</span>
+    </div>
+    <div class="ttopic">${t.topic}</div>
+    <div class="tmeta">${t.time} · Cảm xúc KH: ${t.emo} · Điểm TB ${t.avg}/10</div>
+    <div class="treason">${t.reason}</div>
+    <div class="tscores"><span>QT ${t.s[0]}</span><span>TĐ ${t.s[1]}</span><span>TN ${t.s[2]}</span><span>GT ${t.s[3]}</span></div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>
