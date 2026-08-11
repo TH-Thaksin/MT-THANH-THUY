@@ -7,31 +7,16 @@
 <style>
 :root{
   color-scheme: light;
-  --navy-900:#0a1f33; --navy-800:#0f2c47; --navy-700:#163c5c; --navy-600:#1e4d73;
-  --teal-500:#0f9c8f; --teal-400:#14b8a6; --teal-100:#d6f3ef;
-  --bg:#f2f6f8; --surface:#ffffff; --surface-2:#eef3f6;
-  --ink:#0e2233; --ink-2:#4c6579; --ink-muted:#7e93a3;
-  --line:#dbe5eb; --ring:rgba(10,31,51,0.10);
+  --navy-900:#06215c; --navy-800:#0a3d91; --navy-700:#0f52b5; --navy-600:#1d63c7;
+  --teal-500:#0f52b5; --teal-400:#1d63c7; --teal-100:#eaf2fb;
+  --accent-red:#e2231a;
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#eaf2fb;
+  --ink:#10203a; --ink-2:#33445e; --ink-muted:#5b6b85;
+  --line:#d7e3f5; --ring:rgba(15,82,181,0.12);
   --seq-100:#cde2fb; --seq-250:#86b6ef; --seq-400:#3987e5; --seq-450:#2a78d6; --seq-500:#256abf; --seq-550:#1c5cab; --seq-700:#0d366b;
-  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --good:#0ca30c; --warning:#fab219; --serious:#e8703c; --critical:#c81b13;
   --font: system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: ui-monospace, "Cascadia Code", "Consolas", "SFMono-Regular", monospace;
-}
-@media (prefers-color-scheme: dark){
-  :root:where(:not([data-theme="light"])){
-    color-scheme: dark;
-    --bg:#071522; --surface:#0f2438; --surface-2:#132c44;
-    --ink:#eef5f7; --ink-2:#a9c0cf; --ink-muted:#7e93a3;
-    --line:#1e3a52; --ring:rgba(255,255,255,0.10);
-    --seq-100:#184f95; --seq-250:#1c5cab; --seq-400:#3987e5; --seq-450:#2a78d6; --seq-500:#5598e7; --seq-550:#6da7ec; --seq-700:#9ec5f4;
-  }
-}
-:root[data-theme="dark"]{
-  color-scheme: dark;
-  --bg:#071522; --surface:#0f2438; --surface-2:#132c44;
-  --ink:#eef5f7; --ink-2:#a9c0cf; --ink-muted:#7e93a3;
-  --line:#1e3a52; --ring:rgba(255,255,255,0.10);
-  --seq-100:#184f95; --seq-250:#1c5cab; --seq-400:#3987e5; --seq-450:#2a78d6; --seq-500:#5598e7; --seq-550:#6da7ec; --seq-700:#9ec5f4;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
@@ -44,28 +29,28 @@ a{color:var(--teal-500);}
 
 /* ===== HEADER ===== */
 header.top{
-  background:linear-gradient(155deg, var(--navy-900), var(--navy-700) 70%);
-  color:#eef5f7; padding:28px 0 34px; border-bottom:4px solid var(--teal-500);
+  background:linear-gradient(155deg, #ffffff, var(--surface-2) 70%);
+  color:var(--ink); padding:28px 0 34px; border-bottom:4px solid var(--accent-red);
 }
 header.top .wrap{display:flex; flex-wrap:wrap; gap:20px; align-items:flex-end; justify-content:space-between;}
-.brand-eyebrow{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-400); font-weight:700; margin:0 0 6px;}
-h1.brand-title{font-size:clamp(22px,3.2vw,32px); font-weight:800; letter-spacing:-0.01em; margin:0 0 8px; font-family:var(--font);}
-.meta-row{display:flex; flex-wrap:wrap; gap:14px 22px; font-size:13px; color:#c3d4de;}
-.meta-row b{color:#fff; font-family:var(--mono); font-weight:600;}
-.toggle-group{display:flex; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius:999px; padding:4px; gap:4px;}
+.brand-eyebrow{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-red); font-weight:700; margin:0 0 6px;}
+h1.brand-title{font-size:clamp(22px,3.2vw,32px); font-weight:800; letter-spacing:-0.01em; margin:0 0 8px; font-family:var(--font); color:var(--navy-900);}
+.meta-row{display:flex; flex-wrap:wrap; gap:14px 22px; font-size:13px; color:var(--ink-2);}
+.meta-row b{color:var(--navy-800); font-family:var(--mono); font-weight:600;}
+.toggle-group{display:flex; background:#ffffff; border:1px solid var(--line); border-radius:999px; padding:4px; gap:4px; box-shadow:var(--shadow-card, 0 2px 8px rgba(15,82,181,.08));}
 .toggle-btn{
-  border:none; background:transparent; color:#c3d4de; font:inherit; font-weight:700; font-size:13.5px;
+  border:none; background:transparent; color:var(--navy-700); font:inherit; font-weight:700; font-size:13.5px;
   padding:10px 20px; border-radius:999px; cursor:pointer; transition:.15s; white-space:nowrap;
 }
-.toggle-btn.active{background:var(--teal-500); color:#04211d; box-shadow:0 2px 10px rgba(15,156,143,.4);}
-.toggle-btn:not(.active):hover{background:rgba(255,255,255,0.12); color:#fff;}
+.toggle-btn.active{background:var(--teal-500); color:#fff; box-shadow:0 2px 10px rgba(15,82,181,.35);}
+.toggle-btn:not(.active):hover{background:var(--surface-2); color:var(--navy-800);}
 
 /* ===== SECTIONS ===== */
 section.view{display:none; padding-top:28px;}
 section.view.active{display:block;}
 .block{margin-bottom:40px;}
 h2.block-title{
-  font-size:20px; font-weight:800; letter-spacing:-0.01em; margin:0 0 4px; color:var(--ink);
+  font-size:20px; font-weight:800; letter-spacing:-0.01em; margin:0 0 4px; color:var(--navy-900);
   display:flex; align-items:center; gap:10px;
 }
 h2.block-title .num{
@@ -85,14 +70,12 @@ p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px
 .tile .tsub{font-size:12.5px; color:var(--ink-2); margin-top:4px;}
 .meter-track{height:8px; border-radius:6px; background:var(--seq-100); margin-top:10px; overflow:hidden;}
 .meter-fill{height:100%; border-radius:6px; background:var(--seq-450);}
-:root[data-theme="dark"] .meter-fill,
-@media (prefers-color-scheme:dark){.meter-fill{background:var(--seq-400);}}
-.tile.hero{background:linear-gradient(155deg,var(--navy-800),var(--navy-600)); border:none;}
-.tile.hero .tlabel{color:#9fd8d0;}
-.tile.hero .tvalue{color:#fff;}
-.tile.hero .tsub{color:#c3d4de;}
-.tile.hero .meter-track{background:rgba(255,255,255,.18);}
-.tile.hero .meter-fill{background:var(--teal-400);}
+.tile.hero{background:linear-gradient(155deg,var(--surface-2),#ffffff); border:1px solid var(--line);}
+.tile.hero .tlabel{color:var(--navy-700);}
+.tile.hero .tvalue{color:var(--accent-red);}
+.tile.hero .tsub{color:var(--ink-2);}
+.tile.hero .meter-track{background:var(--surface-2);}
+.tile.hero .meter-fill{background:var(--accent-red);}
 
 /* ===== ISSUE CARDS ===== */
 .issue-card{
@@ -104,7 +87,7 @@ p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px
   font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
   background:var(--surface-2); color:var(--ink-2); padding:3px 9px; border-radius:6px; border:1px solid var(--line);
 }
-.issue-card h3{font-size:16px; margin:0; font-weight:800; color:var(--ink);}
+.issue-card h3{font-size:16px; margin:0; font-weight:800; color:var(--navy-900);}
 .issue-card .icount{margin-left:auto; font-family:var(--mono); font-size:12.5px; color:var(--ink-muted);}
 .issue-card p{font-size:14px; color:var(--ink-2); margin:0 0 10px;}
 .quote-block{
@@ -115,8 +98,7 @@ p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px
 .fix-box{
   background:var(--teal-100); border-radius:8px; padding:10px 14px; font-size:13.5px; color:var(--navy-900); margin-top:10px;
 }
-:root[data-theme="dark"] .fix-box, @media (prefers-color-scheme:dark){ .fix-box{background:rgba(15,156,143,0.16); color:#c8ece7;} }
-.fix-box b{color:var(--teal-500);}
+.fix-box b{color:var(--accent-red);}
 
 /* ===== STRENGTHS ===== */
 .strength-list{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px;}
@@ -153,12 +135,10 @@ p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px
 .ticket .tid{font-family:var(--mono); font-size:12px; color:var(--ink-muted);}
 .badge{font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; display:inline-flex; align-items:center; gap:5px; margin-left:auto; white-space:nowrap;}
 .badge::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor;}
-.badge.b-critical{background:rgba(208,59,59,.12); color:var(--critical);}
-.badge.b-serious{background:rgba(236,131,90,.14); color:#b85a34;}
+.badge.b-critical{background:rgba(200,27,19,.12); color:var(--critical);}
+.badge.b-serious{background:rgba(232,112,60,.14); color:#b85a34;}
 .badge.b-warning{background:rgba(250,178,25,.16); color:#95700a;}
-.badge.b-case{background:rgba(15,156,143,.14); color:var(--teal-500);}
-:root[data-theme="dark"] .badge.b-serious,@media (prefers-color-scheme:dark){.badge.b-serious{color:#f3a37e;}}
-:root[data-theme="dark"] .badge.b-warning,@media (prefers-color-scheme:dark){.badge.b-warning{color:#fcc866;}}
+.badge.b-case{background:rgba(15,82,181,.12); color:var(--teal-500);}
 .ticket .tmeta{color:var(--ink-muted); font-size:11.5px; margin-bottom:8px; font-family:var(--mono);}
 .ticket .ttopic{font-weight:700; color:var(--ink); margin-bottom:6px; font-size:13.5px;}
 .ticket .treason{color:var(--ink-2); font-size:12.5px; margin-bottom:6px;}
@@ -219,14 +199,14 @@ p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px
 }
 .choice-btn:hover{border-color:var(--seq-450); background:var(--surface-2);}
 .choice-btn.correct{border-color:var(--good); background:rgba(12,163,12,.08);}
-.choice-btn.wrong{border-color:var(--critical); background:rgba(208,59,59,.08);}
+.choice-btn.wrong{border-color:var(--critical); background:rgba(200,27,19,.08);}
 .choice-btn:disabled{cursor:default;}
 .feedback{
   margin-top:12px; padding:12px 16px; border-radius:10px; font-size:13.5px; display:none;
 }
 .feedback.show{display:block;}
 .feedback.ok{background:rgba(12,163,12,.10); color:var(--ink); border-left:3px solid var(--good);}
-.feedback.bad{background:rgba(208,59,59,.10); color:var(--ink); border-left:3px solid var(--critical);}
+.feedback.bad{background:rgba(200,27,19,.10); color:var(--ink); border-left:3px solid var(--critical);}
 .feedback b{display:block; margin-bottom:3px;}
 
 /* ===== CHECKLIST ===== */
@@ -240,16 +220,16 @@ p.block-sub{color:var(--ink-2); font-size:14px; margin:0 0 18px; max-width:760px
 .check-item input{margin-top:2px; width:16px; height:16px; accent-color:var(--teal-500); flex-shrink:0; cursor:pointer;}
 .check-item label{cursor:pointer;}
 .score-summary{
-  margin-top:20px; background:linear-gradient(155deg,var(--navy-800),var(--navy-600)); border-radius:14px;
-  padding:20px 24px; display:flex; flex-wrap:wrap; gap:22px; align-items:center; color:#fff;
+  margin-top:20px; background:linear-gradient(155deg,var(--surface-2),#ffffff); border:1px solid var(--line); border-radius:14px;
+  padding:20px 24px; display:flex; flex-wrap:wrap; gap:22px; align-items:center; color:var(--ink);
 }
-.score-summary .ssbig{font-family:var(--mono); font-size:38px; font-weight:800;}
-.score-summary .sslabel{font-size:12px; color:#9fd8d0; text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+.score-summary .ssbig{font-family:var(--mono); font-size:38px; font-weight:800; color:var(--accent-red);}
+.score-summary .sslabel{font-size:12px; color:var(--navy-700); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
 .reset-btn{
-  margin-left:auto; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); color:#fff;
+  margin-left:auto; background:#ffffff; border:1px solid var(--navy-700); color:var(--navy-700);
   font:inherit; font-weight:700; font-size:12.5px; padding:9px 16px; border-radius:9px; cursor:pointer;
 }
-.reset-btn:hover{background:rgba(255,255,255,.2);}
+.reset-btn:hover{background:var(--surface-2);}
 
 footer{text-align:center; padding:26px 20px; color:var(--ink-muted); font-size:12px;}
 
@@ -384,7 +364,81 @@ footer{text-align:center; padding:26px 20px; color:var(--ink-muted); font-size:1
   </div>
 
   <div class="block">
-    <h2 class="block-title"><span class="num">4</span>Giáo án đào tạo — 2 buổi</h2>
+    <h2 class="block-title"><span class="num">4</span>Điểm mạnh phát huy — 6 cuộc gọi minh hoạ</h2>
+    <p class="block-sub">6 cuộc gọi thật trong dữ liệu (chọn từ nội dung voice-to-text của toàn bộ 734 cuộc, không giới hạn theo file ghi âm sẵn có) — mỗi cuộc gắn với đúng 1 trong 4 điểm mạnh ở mục 3, dùng làm mẫu tham chiếu khi đào tạo, đối chiếu với "Quy trình chuẩn" và các case study điểm thấp ở mục 6.</p>
+
+    <div class="issue-card" style="border-left-color:var(--good);">
+      <div class="ihead">
+        <span class="itag">Trục: Thái độ + Giao tiếp</span>
+        <h3>1. Giữ bình tĩnh và xoa dịu khách cực kỳ bức xúc</h3>
+        <span class="icount">ID 453333823 · 11/07/2026 · 5p08s · Điểm TB 10/10</span>
+      </div>
+      <p>Khách báo mất mạng phục vụ kinh doanh từ 16h30, đã gọi 3 nhân viên khác trước đó mà không ai xử lý, doạ không đóng cước và chuyển sang nhà mạng khác. ĐTV không tranh cãi, liên tục xin lỗi đúng lúc và xin thông tin cụ thể để đôn đốc xử lý ngay.</p>
+      <div class="quote-block">"Dạ dạ em xin lỗi anh... Vâng vâng anh thông cảm giúp em vì cái này cũng đã báo nhưng bên em cũng đã điều mấy lần rồi đó chứ gọi không được mới là vấn đề đây ạ... dạ dạ rồi để em nhờ hỗ trợ bên kiểm tra luôn cho anh trường hợp này nha anh thông cảm giúp em nha anh Đoàn."<cite>ID 453333823 · ĐTV xử lý xuyên suốt cuộc gọi</cite></div>
+      <div class="quote-block">"kh: Cảm ơn ạ dạ. td: Chào anh cảm ơn anh."<cite>ID 453333823 · Câu kết thúc — khách chuyển từ gay gắt sang cảm ơn</cite></div>
+      <div class="fix-box"><b>Vì sao nên nhân rộng:</b> Xin lỗi đúng lúc, không tranh cãi khi khách nói quá, và cam kết "báo lên nhóm kiểm tra" thay vì hứa suông — khách đổi thái độ hoàn toàn dù mở đầu rất gay gắt. Đây chính là cách xử lý cho tình huống ở mục 3 (Trục: Thái độ — Khách gọi lại nhiều lần) trong phần ĐTV thực hành.</div>
+    </div>
+
+    <div class="issue-card" style="border-left-color:var(--good);">
+      <div class="ihead">
+        <span class="itag">Trục: Trách nhiệm + Giao tiếp</span>
+        <h3>2. Ghi nhận đúng lịch sử cuộc gọi trước khi khách kịp phàn nàn</h3>
+        <span class="icount">ID 452870919 · 09/07/2026 · 0p50s · Điểm TB 10/10</span>
+      </div>
+      <p>Khách vừa nhấc máy đã nói đã gọi "45 lần" trong buổi sáng mà chưa ai xử lý. Thay vì im lặng hoặc cãi lại, ĐTV tra đúng lịch sử thực tế (3 lần) và xin lỗi ngay — khách được lắng nghe đúng, không bị bỏ mặc.</p>
+      <div class="quote-block">"kh: Ủa vậy là hồi sáng giờ báo 45 lần rồi mà giờ không xử lý được hả chị. td: Sáng nay anh Nguyễn Thanh Thảo có gọi lên tổng đài 3 lần rồi đó, anh chưa được nhận sự hỗ trợ của kỹ thuật ạ... xin lỗi anh sự cố này, để em báo lại cho anh."<cite>ID 452870919 · Chỉ 50 giây, đạt điểm tuyệt đối</cite></div>
+      <div class="fix-box"><b>Vì sao nên nhân rộng:</b> Đây là cách khắc phục trực tiếp cho vấn đề #3 ở mục 2 ("Thiếu đồng cảm khi khách đã gọi lại nhiều lần") — nhắc đúng số lần khách đã gọi bằng lời khiến khách cảm thấy được ghi nhận thật sự, không cần cuộc gọi dài mới đạt điểm cao.</div>
+    </div>
+
+    <div class="issue-card" style="border-left-color:var(--good);">
+      <div class="ihead">
+        <span class="itag">Trục: Quy trình</span>
+        <h3>3. Xử lý từng bước cơ bản, không vội chuyển kỹ thuật</h3>
+        <span class="icount">ID 453082611 · 10/07/2026 · 7p05s · Điểm TB 10/10</span>
+      </div>
+      <p>Khách gay gắt vì mạng chập chờn nhiều ngày, đặc biệt khi trời mưa. Thay vì chuyển thẳng cho kỹ thuật, ĐTV hướng dẫn khách reset thiết bị, chờ đủ đèn tín hiệu rồi mới kiểm tra lại MyTV — đúng bước 4 ("Kiểm tra bước cơ bản") của quy trình chuẩn ở phần ĐTV thực hành.</p>
+      <div class="quote-block">"td: Anh bấm reset thử xem... em reset được rồi nè, anh vào lại thử xem thiết bị đèn sáng lại chưa ạ... anh xem đèn lên đủ xanh chưa... cứ chờ đèn lên đã... rồi thử mở TV, được không dạ?<br>kh: Rồi được rồi chị ơi... Cảm ơn."<cite>ID 453082611 · Xử lý dứt điểm ngay trong cuộc gọi</cite></div>
+      <div class="fix-box"><b>Vì sao nên nhân rộng:</b> Loại trừ nguyên nhân đơn giản trước khi kết luận cần kỹ thuật giúp xử lý dứt điểm ngay trong cuộc gọi dù kéo dài 7 phút với khách đang bực. Nhờ giữ được thiện cảm khách hàng, ĐTV còn tư vấn thêm dịch vụ camera thành công ngay sau đó.</div>
+    </div>
+
+    <div class="issue-card" style="border-left-color:var(--good);">
+      <div class="ihead">
+        <span class="itag">Trục: Quy trình + Giao tiếp</span>
+        <h3>4. Hỏi thẳng nhu cầu ngay từ câu mở đầu, xác nhận trước khi kết thúc</h3>
+        <span class="icount">ID 452800577 · 09/07/2026 · 2p13s · Điểm TB 10/10</span>
+      </div>
+      <p>Cuộc gọi ngắn (2 phút) nhưng đi đúng trọn vẹn khung kịch bản chuẩn: hỏi nhu cầu ngay câu đầu tiên, xác thực đúng thông tin liên hệ dù khách đọc nhầm số 2 lần, và chốt lại bằng câu hỏi xác nhận trước khi chào — không có bước nào bị bỏ qua dù thời lượng rất ngắn.</p>
+      <div class="quote-block">"td: Thưa em gọi từ chăm sóc khách hàng của VNPT á mình cần hỗ trợ gì ạ chị."<cite>ID 452800577 · Câu mở đầu — hỏi nhu cầu ngay, không để khách tự dẫn dắt</cite></div>
+      <div class="quote-block">"td: Chị cần em hỗ trợ gì thêm nữa không ạ. kh: Dạ không được ạ. td: Dạ rồi cảm ơn chị nhiều nha."<cite>ID 452800577 · Câu kết thúc — gần như nguyên văn mẫu chuẩn</cite></div>
+      <div class="fix-box"><b>Vì sao nên nhân rộng:</b> Câu mở và câu kết đúng gần như nguyên văn mẫu kịch bản chuẩn ở mục 3 ("Nền tảng kịch bản chuẩn hoá") — chứng minh việc giữ khung chuẩn không làm cuộc gọi dài dòng hơn, ngược lại giúp xử lý gọn trong 2 phút vẫn đạt điểm tuyệt đối.</div>
+    </div>
+
+    <div class="issue-card" style="border-left-color:var(--good);">
+      <div class="ihead">
+        <span class="itag">Trục: Thái độ + Trách nhiệm</span>
+        <h3>5. Không tranh cãi khi khách trút giận vì lỗi lặp lại nhiều lần</h3>
+        <span class="icount">ID 450601458 · 19/07/2026 · 5p31s · Điểm TB 10/10</span>
+      </div>
+      <p>Khách rất bức xúc vì sự cố lặp lại nhiều lần, nghi ngờ ĐTV cố tình không thay dây cũ, nói to liên tục và không cho ĐTV chen vào xác thực thông tin. ĐTV không tranh cãi, kiên nhẫn xin lại đúng thông tin định danh rồi mới cam kết hướng xử lý cụ thể. Dịch vụ vẫn bị đánh giá "không hài lòng" nhưng riêng ĐTV được đánh giá "Hài lòng".</p>
+      <div class="quote-block">"kh: Mấy anh chị làm gì kỳ cục vậy kêu thay đổi dây cho em đi mà bị lại người hoài vậy... Bao nhiêu lần rồi mấy anh chị không thay dây cho em luôn mà bị vấn đề hoài."<cite>ID 450601458 · Khách trút giận liên tục, ĐTV không tranh cãi lại</cite></div>
+      <div class="quote-block">"td: Rồi để chị yêu cầu em sẽ báo phiếu yêu cầu cho chị nha... Số chị là 0846599185 nha kỹ thuật gọi lại số đó cho mình vào ngày mai."<cite>ID 450601458 · Cam kết cụ thể thay vì trấn an suông</cite></div>
+      <div class="fix-box"><b>Vì sao nên nhân rộng:</b> Dù "Đánh giá hài lòng dịch vụ" = không hài lòng (do lỗi kỹ thuật lặp lại), "Hài lòng với ĐTV" vẫn = Hài lòng — minh chứng rõ nhất cho điểm mạnh #3 ở mục 3: thái độ cá nhân được khách đánh giá tách biệt khỏi chất lượng hạ tầng, miễn là ĐTV không tranh cãi và đưa ra cam kết cụ thể thay vì hứa suông.</div>
+    </div>
+
+    <div class="issue-card" style="border-left-color:var(--good);">
+      <div class="ihead">
+        <span class="itag">Trục: Quy trình + Trách nhiệm</span>
+        <h3>6. Mẫu cuộc gọi "sạch" — không cảnh báo, đúng đủ các bước</h3>
+        <span class="icount">ID 452811613 · 09/07/2026 · 3p03s · Điểm TB 10/10</span>
+      </div>
+      <p>Không có cảnh báo hệ thống nào (không đàm thoại một chiều, không quá dài, không khoảng lặng lớn). ĐTV xác thực đúng số hợp đồng dù khách đọc nhầm, mô tả đúng hiện tượng đèn tín hiệu, gắn mốc thời gian xử lý cụ thể và hỏi xác nhận trước khi kết thúc — toàn bộ quy trình chuẩn được thực hiện đầy đủ trong một cuộc gọi bình thường, không có yếu tố kịch tính.</p>
+      <div class="quote-block">"td: Thời gian xử lý phiếu trong vòng 8 giờ đồng hồ nhé kỹ thuật ờ sẽ sắp xếp để hỗ trợ nhà bác ạ. kh: Dạ rồi ok. td: Dạ dạ em báo trên hệ thống rồi đó anh anh cần hỗ trợ gì khác nữa không ạ."<cite>ID 452811613 · Cam kết thời gian cụ thể + xác nhận trước khi kết thúc</cite></div>
+      <div class="fix-box"><b>Vì sao nên nhân rộng:</b> Đây là dạng cuộc gọi chiếm đa số trong 715/734 ca không bị cảnh báo — không có gì đặc biệt, chỉ đơn giản là làm đúng đủ các bước ở mục 1 (ĐTV thực hành). Dùng làm mẫu đối chiếu "thế nào là bình thường" khi ôn lại 23 ca cần nghe lại ở mục 8.</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2 class="block-title"><span class="num">5</span>Giáo án đào tạo — 2 buổi</h2>
     <p class="block-sub">Gộp 4 trục điểm Emas thành 2 buổi theo cặp liên quan: buổi 1 xử lý gốc rễ vấn đề kỹ thuật/quy trình, buổi 2 xử lý trải nghiệm & kết thúc cuộc gọi — vẫn đo lường được tiến bộ theo từng trục trên báo cáo AI của kỳ tiếp theo.</p>
     <div class="table-scroll">
     <table class="plan-table">
@@ -408,12 +462,12 @@ footer{text-align:center; padding:26px 20px; color:var(--ink-muted); font-size:1
   </div>
 
   <div class="block">
-    <h2 class="block-title"><span class="num">5</span>5 case study điểm thấp nhất</h2>
+    <h2 class="block-title"><span class="num">6</span>5 case study điểm thấp nhất</h2>
     <div id="case-list"></div>
   </div>
 
   <div class="block">
-    <h2 class="block-title"><span class="num">6</span>Phân bố dữ liệu</h2>
+    <h2 class="block-title"><span class="num">7</span>Phân bố dữ liệu</h2>
     <div class="tile-grid" style="grid-template-columns:1fr 1fr;">
       <div class="chart-card">
         <h4>Trạng thái cảm xúc khách hàng</h4>
@@ -429,7 +483,7 @@ footer{text-align:center; padding:26px 20px; color:var(--ink-muted); font-size:1
   </div>
 
   <div class="block">
-    <h2 class="block-title"><span class="num">7</span>Cuộc gọi cần nghe lại (QA ticket)</h2>
+    <h2 class="block-title"><span class="num">8</span>Cuộc gọi cần nghe lại (QA ticket)</h2>
     <p class="block-sub">23 cuộc gọi ưu tiên nghe lại: nhóm điểm thấp nhất + toàn bộ 10 ca có "lý do không hài lòng do ĐTV". Sắp xếp theo mức độ nghiêm trọng.</p>
     <div class="ticket-grid" id="ticket-list"></div>
   </div>
@@ -601,7 +655,7 @@ footer{text-align:center; padding:26px 20px; color:var(--ink-muted); font-size:1
         <div class="sslabel">Điểm trung bình chung</div>
         <div class="ssbig" id="score-total">0.0<span style="font-size:18px;font-weight:600;">/10</span></div>
       </div>
-      <div style="font-size:13px; color:#c3d4de; max-width:320px;">So sánh với điểm trung bình hiện tại của toàn bộ dữ liệu: <b style="color:#fff;">9.92/10</b></div>
+      <div style="font-size:13px; color:var(--ink-2); max-width:320px;">So sánh với điểm trung bình hiện tại của toàn bộ dữ liệu: <b style="color:var(--accent-red);">9.92/10</b></div>
       <button class="reset-btn" onclick="resetChecklist()">Làm lại</button>
     </div>
   </div>
